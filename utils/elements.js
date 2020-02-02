@@ -1,4 +1,3 @@
-// TODO: not working
 const getElement = (client, selectors) => {
   const selectorStr = selectors.reduce((str, selector) => {
     let newStr = `${str}.${selector[0]}(`
@@ -14,6 +13,7 @@ const clickGivenElement = el => {
   return el.click()
 }
 
+// TODO: make passing client each time optional by using closures
 const clickElement = async (client, selectors) => {
   const element = await getElement(client, selectors)
   return clickGivenElement(element)
@@ -41,9 +41,9 @@ const withPrintErrors = (action, ...args) => {
 
 module.exports = {
   clickElement,
-  getElement,
-  tryAction
+  getElement
   /*// TODO: not working properly
+  tryAction
   withPrintErrors
   //*/
 }

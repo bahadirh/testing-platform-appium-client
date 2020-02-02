@@ -64,83 +64,54 @@ async function main() {
       const darkThemeSwitch = await getElement(client, [
         ['resourceId', 'com.cloudflare.onedotonedotonedotone:id/darkModeSwitch']
       ])
-      console.log(await darkThemeSwitch.getText())
-      await clickElement(client, [
-        ['resourceId', 'com.cloudflare.onedotonedotonedotone:id/darkModeSwitch']
-      ])
+      if ((await darkThemeSwitch.getText()) != 'ON') {
+        await darkThemeSwitch.click()
+      }
 
+      // back to main menu
       await clickElement(client, [['descriptionMatches', 'Navigate up']])
-
       await client.back()
+
+      try {
+        await client.acceptAlert()
+      } catch (error) {
+        console.log(error.message)
+      }
+
+      // turn it on
+      const turnSwitch = await getElement(client, [
+        ['resourceId', 'com.cloudflare.onedotonedotonedotone:id/launchSwitch']
+      ])
+      if ((await turnSwitch.getText()) != 'ON') {
+        await turnSwitch.click()
+        // there might be an optional permission request
+        try {
+          await clickElement(client, [['text', 'Install VPN profile']])
+          await clickElement(client, [['text', 'OK']])
+        } catch (error) {
+          // console.log(error.message)
+        }
+
+        // TODO: take screenshot here
+        console.log(
+          await (
+            await getElement(client, [
+              [
+                'resourceId',
+                'com.cloudflare.onedotonedotonedotone:id/connectionStateTv'
+              ]
+            ])
+          ).getText()
+        )
+      }
     } catch (error) {
-      await console.log(error.message)
+      console.log(error.message)
     }
 
     await client.deleteSession()
   } catch (error) {
     console.log(error.message)
   }
-  // await getStartedButton.click()
-  /*
-  // accept terms of service if there's an accept button of it
-  tryAction(() => clickElement(client, [['text', 'Accept']]))
-
-  // skip initial screens specific to running the app for the first time
-  tryAction(() => clickElement(client, [['text', 'Get started']]))
-  console.log('\n\n\nhere\n\n\n')
-  tryAction(() => clickElement(client, [['text', 'Done']]))
-  tryAction(() => clickElement(client, [['text', 'Accept']]))
-
-  // const element = await client.findElement(
-  //   'xpath',
-  //   '//android.widget.ImageButton[@content-desc="Guide"]'
-  // )
-  // await element.click()
-
-  // check user guide and go back
-  tryAction(() =>
-    clickElement(client, [
-      ['resourceId', 'com.cloudflare.onedotonedotonedotone:id/guideBtn']
-    ])
-  )
-  tryAction(() => clickElement(client, [['text', 'Done']]))
-
-  // change the service to 1.1.1.1 only
-  tryAction(() =>
-    clickElement(client, [
-      ['resourceId', 'com.cloudflare.onedotonedotonedotone:id/settingsBtn']
-    ])
-  )
-  tryAction(() =>
-    clickElement(client, [
-      [
-        'resourceId',
-        'com.cloudflare.onedotonedotonedotone:id/settingsAppModeNoWarp'
-      ]
-    ])
-  )
-  // change theme to dark
-  tryAction(() => clickElement(client, [['text', 'More settings']]))
-  tryAction(() => clickElement(client, [['text', 'Use dark theme']])) // should do nothing
-  tryAction(() =>
-    clickElement(client, [
-      ['resourceId', 'com.cloudflare.onedotonedotonedotone:id/darkModeSwitch']
-    ])
-  )
-  tryAction(() => clickElement(client, [['descriptionMatches', 'Navigate up']]))
-  await client.back()
-  //*/
-  // take the screenshot of the main screen
-  // const ss = await client.saveScreenshot(
-  //   `${__dirname}/screenshots/${new Date().getTime()}`
-  // )
-
-  // await client.deleteSession()
 }
 
 main()
-/*
-com.cloudflare.onedotonedotonedotone:id/settingsBtn
-com.cloudflare.onedotonedotonedotone:id/settingsAppModeNoWarp
-client back
-*/
