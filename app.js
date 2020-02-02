@@ -82,7 +82,7 @@ async function main() {
       const turnSwitch = await getElement(client, [
         ['resourceId', 'com.cloudflare.onedotonedotonedotone:id/launchSwitch']
       ])
-      if ((await turnSwitch.getText()) != 'ON') {
+      if ((await turnSwitch.getText()) == 'OFF') {
         await turnSwitch.click()
         // there might be an optional permission request
         try {
@@ -103,6 +103,19 @@ async function main() {
             ])
           ).getText()
         )
+      }
+
+      // turn it off
+      if ((await turnSwitch.getText()) == 'ON') {
+        await turnSwitch.click()
+
+        // may be asked for how long it should be off
+        try {
+          await clickElement(client, [['text', 'Until I turn it back on']])
+        } catch (error) {
+          console.log(error.message)
+        }
+        // TODO: take screenshot
       }
     } catch (error) {
       console.log(error.message)
