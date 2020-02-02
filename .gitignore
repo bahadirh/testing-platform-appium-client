@@ -1,3 +1,5 @@
+# apk files, as they may cause license issues
+apk
 # Logs
 logs
 *.log
