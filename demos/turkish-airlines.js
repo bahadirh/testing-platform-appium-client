@@ -1,11 +1,6 @@
 const { remote } = require('webdriverio')
 
-const {
-  clickElement,
-  getElement,
-  tryAction,
-  waitUntilDone
-} = require('../utils')
+const { clickElement, getElement, tryAction } = require('../utils')
 
 const opts = {
   logLevel: 'silent',
@@ -29,10 +24,11 @@ async function main() {
     // accept permission alert pop-up if there's one
     await tryAction(() => client.acceptAlert())
 
-    // accept cookies
-    await waitUntilDone(() =>
-      clickElement(client, [['text', 'Accept Cookies']])
-    )
+    // wait until the button appears, then click on it
+    // TODO: create a function for those methods?
+    const cookiesButton = await getElement(client, [['text', 'Accept Cookies']])
+    await cookiesButton.waitForExist(10000)
+    await cookiesButton.click()
 
     // search a flight
     await tryAction(async () => {
