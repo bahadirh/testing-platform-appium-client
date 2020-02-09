@@ -11,10 +11,13 @@ const opts = {
     acceptInsecureCerts: true,
     allowTestPackages: true,
     // app: `${__dirname}/apk/ApiDemos-debug.apk`,
-    appActivity: 'com.cloudflare.app.presentation.main.MainActivity',
-    // appName: 'API Demos',
-    appPackage: 'com.cloudflare.onedotonedotonedotone',
-    // appPackage: 'com.turkishairlines.mobile',
+    // app: `${__dirname}/apk/turkish-airlines-1-10-0.apk`,
+    // appActivity: 'com.cloudflare.app.presentation.main.MainActivity',
+    appActivity: 'ui.main.MainActivity',
+    // appName: 'API Demos',  // TODO: An unknown server-side error occurred while processing the command. Original error: activity and pkg are required to start an application
+    // appPackage: 'io.appium.android.apis',
+    // appPackage: 'com.cloudflare.onedotonedotonedotone',
+    appPackage: 'com.turkishairlines.mobile',
     automationName: 'UiAutomator2',
     deviceName: 'Android Emulator',
     // isHeadless: true,  // gives error

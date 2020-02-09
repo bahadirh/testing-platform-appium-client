@@ -24,26 +24,30 @@ const tryAction = async (
   errHandler = err => console.log(err.message)
 ) => {
   try {
-    action()
+    return await action()
   } catch (error) {
-    errHandler(error)
+    return errHandler(error)
   }
 }
 
-const withPrintErrors = (action, ...args) => {
-  const { status, data } = tryAction(action, ...args)
-
-  if (!status) {
-    console.log(data)
+const waitUntilDone = async (fn, repeat = 50) => {
+  for (let i = 0; i < repeat; i++) {
+    try {
+      await fn()
+      return
+    } catch (error) {}
   }
-  return data
+}
+
+const verifyElement = async (client, selectors) => {
+  const element = await getElement(client, selectors)
+  console.log(element)
 }
 
 module.exports = {
   clickElement,
-  getElement
-  /*// TODO: not working properly
-  tryAction
-  withPrintErrors
-  //*/
+  getElement,
+  tryAction,
+  verifyElement,
+  waitUntilDone
 }
