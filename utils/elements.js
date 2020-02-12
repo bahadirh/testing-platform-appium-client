@@ -24,9 +24,9 @@ const tryAction = async (
   errHandler = err => console.log(err.message)
 ) => {
   try {
-    return await action()
+    await action()
   } catch (error) {
-    return errHandler(error)
+    errHandler(error)
   }
 }
 

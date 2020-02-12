@@ -1,11 +1,6 @@
 const wdio = require('webdriverio')
 
-const {
-  clickElement,
-  getElement,
-  tryAction,
-  waitUntilDone
-} = require('../utils')
+const { clickElement, getElement, tryAction } = require('../utils')
 
 const opts = {
   logLevel: 'silent',
@@ -41,10 +36,60 @@ async function main() {
       const toggle = await getElement(client, [
         ['resourceId', 'org.wikipedia:id/view_onboarding_page_switch']
       ])
-      console.log(await toggle.getText())
       await toggle.click()
 
       await clickElement(client, [['text', 'GET STARTED']])
+    })
+
+    // dismiss any alert popped up
+    await tryAction(async () => {
+      await client.dismissAlert()
+    })
+    await clickElement(client, [['text', 'GOT IT']])
+
+    // endtest.io sample
+    await tryAction(async () => {
+      // TODO: save screenshot?
+      // const fileBuffer = await client.saveScreenshot(`${__dirname}/ss.png`)
+
+      // verify search bar is present
+      let searchBar = await getElement(client, [
+        ['resourceId', 'org.wikipedia:id/search_container']
+      ])
+      await searchBar.waitForExist(10000)
+
+      // verify explore icon is present
+      const exploreIcon = await getElement(client, [
+        ['resourceId', 'org.wikipedia:id/icon']
+      ])
+      await exploreIcon.waitForExist(10000)
+
+      // tap search input
+      await searchBar.click()
+
+      // write search input
+      searchBar = await getElement(client, [
+        ['resourceId', 'org.wikipedia:id/search_src_text']
+      ])
+      await searchBar.setValue('Automated Testing')
+
+      // screenshot?
+
+      // click on the first search result
+      // TODO: make use of it further
+      const firstResult = await client.findElement(
+        'xpath',
+        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ListView/android.view.ViewGroup[1]'
+      )
+      await client.elementClick(firstResult.ELEMENT)
+
+      // screenshot?
+
+      // verify title
+      const title = await getElement(client, [
+        ['text', 'Automated Testing Framework']
+      ])
+      await title.waitForExist(10000)
     })
 
     await client.deleteSession()
