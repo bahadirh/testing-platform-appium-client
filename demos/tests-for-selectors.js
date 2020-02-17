@@ -2,13 +2,7 @@ const wdio = require('webdriverio')
 
 const { tryAction } = require('../utils')
 
-const {
-  clickElement,
-  findElement,
-  pushFile,
-  platforms,
-  waitForElement
-} = require('../utils/v2')
+const functions = require('../utils/v2')
 
 const opts = {
   logLevel: 'silent',
@@ -28,23 +22,30 @@ const opts = {
 async function main() {
   await tryAction(async () => {
     const client = await wdio.remote({ ...opts })
-    const _ = platforms.onPlatform(client)
+    const _ = functions.platforms.onPlatform(client, functions)
 
-    const element = await _(
-      findElement,
-      'resourceId',
-      'org.wikipedia:id/fragment_onboarding_skip_button'
-    )
+    await tryAction(async () => {
+      const element = await _(
+        _.findElement,
+        'resourceId',
+        'org.wikipedia:id/fragment_onboarding_skip_button'
+      )
 
-    await _(waitForElement, element)
-    await _(clickElement, element)
+      await _(_.waitForElement, element)
+      await _(_.clickElement, element)
 
-    await _(
-      pushFile,
-      '/sdcard/file.txt',
-      new Buffer('Hello World2').toString('base64')
-    )
+      // await _(
+      //   pushFile,
+      //   '/sdcard/file.txt',
+      //   new Buffer('Please read that file from start to end.').toString(
+      //     'base64'
+      //   )
+      // )
 
+      await client.saveScreenshot(`ss2.png`)
+      // const ss = await client.takeScreenshot()
+      console.log()
+    })
     /*
     // skip initial tutorial and settings
     await tryAction(async () => {
