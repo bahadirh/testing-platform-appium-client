@@ -1,5 +1,9 @@
 const clickElementOnAndroid = async (client, element) => {
-  return await element.click()
+  if (typeof element == 'string') {
+    return await client.elementClick(element)
+  } else {
+    return await element.click()
+  }
 }
 
 const clickElementOnIOS = async (client, element) => {
