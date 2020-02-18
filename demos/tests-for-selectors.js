@@ -1,8 +1,7 @@
 const wdio = require('webdriverio')
 
 const { tryAction } = require('../utils')
-
-const functions = require('../utils/v2')
+const utils = require('../utils/v2')
 
 const opts = {
   logLevel: 'silent',
@@ -20,12 +19,13 @@ const opts = {
 }
 
 async function main() {
-  await tryAction(async () => {
+  await utils.actionSequence(null, async () => {
     const client = await wdio.remote({ ...opts })
-    const _ = functions.platforms.onPlatform(client, functions)
+    const _ = utils.platforms.onPlatform(client, utils)
 
-    await tryAction(async () => {
-      const element = await _(
+    await _(_.actionSequence, async () => {
+      let element
+      element = await _(
         _.findElement,
         'resourceId',
         'org.wikipedia:id/fragment_onboarding_skip_button'
@@ -35,89 +35,72 @@ async function main() {
       await _(_.clickElement, element)
 
       // await _(
-      //   pushFile,
+      //   _.pushFile,
       //   '/sdcard/file.txt',
       //   new Buffer('Please read that file from start to end.').toString(
       //     'base64'
       //   )
       // )
 
-      await client.saveScreenshot(`ss2.png`)
-      // const ss = await client.takeScreenshot()
-      console.log()
+      // await _(_.saveScreenshot, `${__dirname}/ss1.png`)
+
+      element = await _(_.findElement, 'text', 'NO THANKS')
+      await _(_.waitForElement, element)
+      await _(_.clickElement, element)
+
+      element = await _(_.findElement, 'text', 'GOT IT')
+      await _(_.waitForElement, element)
+      await _(_.clickElement, element)
+
+      // endtest.io sample
+      await _(_.actionSequence, async () => {
+        // verify search bar is present
+        let element
+        element = await _(
+          _.findElement,
+          'resourceId',
+          'org.wikipedia:id/search_container'
+        )
+        await _(_.waitForElement, element)
+
+        // verify explore icon is present
+        element = await _(_.findElement, 'resourceId', 'org.wikipedia:id/icon')
+        await _(_.waitForElement, element)
+
+        // tap search input
+        element = await _(
+          _.findElement,
+          'resourceId',
+          'org.wikipedia:id/search_container'
+        )
+        await _(_.clickElement, element)
+
+        // write search input
+        element = await _(
+          _.findElement,
+          'resourceId',
+          'org.wikipedia:id/search_src_text'
+        )
+        await _(_.setValue, element, 'Automated Testing')
+
+        // screenshot
+        // await _(_.saveScreenshot, `${__dirname}/ss2.png`)
+
+        // click on the first search result
+        element = await _(
+          _.findElementByXpath,
+          '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ListView/android.view.ViewGroup[1]'
+        )
+        await _(_.clickElement, element)
+
+        // screenshot
+        // await _(_.saveScreenshot, `${__dirname}/ss3.png`)
+
+        // verify title
+        element = await _(_.findElement, 'text', 'Automated Testing Framework')
+        await _(_.waitForElement, element, 10000)
+      })
     })
-    /*
-    // skip initial tutorial and settings
-    await tryAction(async () => {
-      await clickElement(client, [
-        ['resourceId', 'org.wikipedia:id/fragment_onboarding_forward_button']
-      ])
-      await clickElement(client, [
-        ['resourceId', 'org.wikipedia:id/fragment_onboarding_forward_button']
-      ])
-      await clickElement(client, [
-        ['resourceId', 'org.wikipedia:id/fragment_onboarding_forward_button']
-      ])
-      // turn off sending usage data
-      const toggle = await getElement(client, [
-        ['resourceId', 'org.wikipedia:id/view_onboarding_page_switch']
-      ])
-      await toggle.click()
-
-      await clickElement(client, [['text', 'GET STARTED']])
-    })
-
-    // dismiss any alert popped up
-    await tryAction(async () => {
-      await client.dismissAlert()
-    })
-    await clickElement(client, [['text', 'GOT IT']])
-
-    // endtest.io sample
-    await tryAction(async () => {
-      // TODO: save screenshot?
-      // const fileBuffer = await client.saveScreenshot(`${__dirname}/ss.png`)
-
-      // verify search bar is present
-      let searchBar = await getElement(client, [
-        ['resourceId', 'org.wikipedia:id/search_container']
-      ])
-      await searchBar.waitForExist(10000)
-
-      // verify explore icon is present
-      const exploreIcon = await getElement(client, [
-        ['resourceId', 'org.wikipedia:id/icon']
-      ])
-      await exploreIcon.waitForExist(10000)
-
-      // tap search input
-      await searchBar.click()
-
-      // write search input
-      searchBar = await getElement(client, [
-        ['resourceId', 'org.wikipedia:id/search_src_text']
-      ])
-      await searchBar.setValue('Automated Testing')
-
-      // screenshot?
-
-      // click on the first search result
-      // TODO: make use of it further
-      const firstResult = await client.findElement(
-        'xpath',
-        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ListView/android.view.ViewGroup[1]'
-      )
-      await client.elementClick(firstResult.ELEMENT)
-
-      // screenshot?
-
-      // verify title
-      const title = await getElement(client, [
-        ['text', 'Automated Testing Framework']
-      ])
-      await title.waitForExist(10000)
-    })
-    //*/
     await client.deleteSession()
   })
 }
