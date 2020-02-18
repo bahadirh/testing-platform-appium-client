@@ -13,7 +13,7 @@ const saveScreenshotOnIOS = async (client, savepath) => {
   // TODO: implement taking and saving screenshots on iOS
 }
 
-exports = {
+module.exports = {
   Android: saveScreenshotOnAndroid,
   iOS: saveScreenshotOnIOS
 }
