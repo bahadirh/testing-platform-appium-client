@@ -1,5 +1,6 @@
-# apk files, as they may cause license issues
+# apk and ipa files, as they may cause license issues
 apk
+ipa
 # Logs
 logs
 *.log
