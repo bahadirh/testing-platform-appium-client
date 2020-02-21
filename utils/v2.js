@@ -7,6 +7,7 @@ const saveScreenshot = require('./save-screenshot')
 const actionSequence = require('./action-sequence')
 const setValue = require('./set-value-of-element')
 const findElementByXpath = require('./find-element-by-xpath')
+const alerts = require('./alerts')
 
 module.exports = {
   actionSequence,
@@ -17,5 +18,6 @@ module.exports = {
   pushFile,
   saveScreenshot,
   setValue,
-  waitForElement
+  waitForElement,
+  ...alerts
 }
