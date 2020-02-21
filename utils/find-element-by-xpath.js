@@ -3,7 +3,9 @@ const findElementByXpathOnAndroid = async (client, path) => {
   return data.ELEMENT
 }
 
-const findElementByXpathOnIOS = async (client, path) => {}
+const findElementByXpathOnIOS = async (client, path) => {
+  // TODO: implement finding element by using xpath on iOS
+}
 
 module.exports = {
   Android: findElementByXpathOnAndroid,
