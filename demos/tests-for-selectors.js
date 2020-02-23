@@ -88,7 +88,8 @@ async function main() {
 
         // click on the first search result
         element = await _(
-          _.findElementByXpath,
+          _.findElement,
+          'xpath',
           '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ListView/android.view.ViewGroup[1]'
         )
         await _(_.clickElement, element)
