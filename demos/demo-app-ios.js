@@ -8,7 +8,7 @@ const opts = {
   capabilities: {
     // acceptInsecureCerts: true,
     // allowTestPackages: true,
-    app: `/Users/bahadirh/Library/Developer/Xcode/DerivedData/AppiumTest-hbnatelqufgnxpddfjqsmwplhzjd/Build/Products/Debug-iphonesimulator/AppiumTest.app`,
+    app: `${__dirname}/../ipa/AppiumTest.app`,
     // app: `${__dirname}/../ipa/iOS-Simulator-NativeDemoApp-0.2.1.app`,
     // appActivity: 'main.MainActivity',
     // appPackage: 'baho.HelloWorld',
