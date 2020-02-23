@@ -14,7 +14,6 @@ const opts = {
     // app: `${__dirname}/apk/turkish-airlines-1-10-0.apk`,
     // appActivity: 'com.cloudflare.app.presentation.main.MainActivity',
     appActivity: 'ui.main.MainActivity',
-    // appName: 'API Demos',  // TODO: An unknown server-side error occurred while processing the command. Original error: activity and pkg are required to start an application
     // appPackage: 'io.appium.android.apis',
     // appPackage: 'com.cloudflare.onedotonedotonedotone',
     appPackage: 'com.turkishairlines.mobile',
@@ -95,7 +94,6 @@ async function main() {
           // console.log(error.message)
         }
 
-        // TODO: take screenshot here
         console.log(
           await (
             await getElement(client, [
@@ -118,7 +116,6 @@ async function main() {
         } catch (error) {
           console.log(error.message)
         }
-        // TODO: take screenshot
       }
     } catch (error) {
       console.log(error.message)
