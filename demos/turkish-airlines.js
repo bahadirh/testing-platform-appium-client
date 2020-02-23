@@ -25,7 +25,6 @@ async function main() {
     await tryAction(() => client.acceptAlert())
 
     // wait until the button appears, then click on it
-    // TODO: create a function for those methods?
     const cookiesButton = await getElement(client, [['text', 'Accept Cookies']])
     await cookiesButton.waitForExist(10000)
     await cookiesButton.click()

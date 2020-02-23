@@ -73,7 +73,6 @@ async function main() {
       // screenshot?
 
       // click on the first search result
-      // TODO: make use of it further
       const firstResult = await client.findElement(
         'xpath',
         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ListView/android.view.ViewGroup[1]'
