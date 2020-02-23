@@ -1,6 +1,6 @@
-const dismissAlertOnAndroid = async (client, ignoreErrors = true) => {
+const acceptAlertOnAndroid = async (client, ignoreErrors = true) => {
   try {
-    return await client.dismissAlert()
+    return await client.acceptAlert()
   } catch (error) {
     if (!ignoreErrors) {
       throw error
@@ -10,11 +10,11 @@ const dismissAlertOnAndroid = async (client, ignoreErrors = true) => {
   }
 }
 
-const dismissAlertOnIOS = async (client, ingoreErrors = true) => {
+const acceptAlertOnIOS = async (client, ingoreErrors = true) => {
   // TODO: implement dismissing alert on iOS
 }
 
 module.exports = {
-  Android: dismissAlertOnAndroid,
-  iOS: dismissAlertOnIOS
+  Android: acceptAlertOnAndroid,
+  iOS: acceptAlertOnIOS
 }
