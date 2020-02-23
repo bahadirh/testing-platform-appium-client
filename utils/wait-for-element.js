@@ -3,7 +3,7 @@ const waitForElementOnAndroid = async (client, element, ms = 3000) => {
 }
 
 const waitForElementOnIOS = async (client, element, ms = 3000) => {
-  // TODO: implement waiting for element to exist on iOS
+  return await element.waitForExist(ms)
 }
 
 module.exports = {
