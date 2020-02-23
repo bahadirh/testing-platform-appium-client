@@ -50,9 +50,6 @@ async function main() {
 
     // endtest.io sample
     await tryAction(async () => {
-      // TODO: save screenshot?
-      // const fileBuffer = await client.saveScreenshot(`${__dirname}/ss.png`)
-
       // verify search bar is present
       let searchBar = await getElement(client, [
         ['resourceId', 'org.wikipedia:id/search_container']
