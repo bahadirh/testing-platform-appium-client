@@ -3,8 +3,8 @@ const findElementOnAndroid = async (client, selector, value) => {
   return await client.$(`android=new UiSelector().${selector}("${value}")`)
 }
 
-const findElementOnIOS = () => {
-  // TODO: implement it
+const findElementOnIOS = async (client, selector, value) => {
+  return await client.$(`-ios predicate string:${selector} == '${value}'`)
 }
 
 module.exports = {
