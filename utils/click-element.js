@@ -7,7 +7,11 @@ const clickElementOnAndroid = async (client, element) => {
 }
 
 const clickElementOnIOS = async (client, element) => {
-  // TODO: implement clicking element on iOS
+  if (typeof element == 'string') {
+    return await client.elementClick(element)
+  } else {
+    return await element.click()
+  }
 }
 
 module.exports = {
