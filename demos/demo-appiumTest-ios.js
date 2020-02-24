@@ -29,7 +29,7 @@ async function main() {
     await _(_.actionSequence, async () => {
       //   element = await client.$(`XCUIElementTypeTextField`)
       element = await _(_.findElement, 'name', 'emailTextField')
-      await _(_.waitForElement, element, 10000)
+      await _(_.waitForExist, element, 10000)
       await element.setValue('ba@ho.com')
 
       await _(_.dismissAlert)

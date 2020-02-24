@@ -31,7 +31,7 @@ async function main() {
         'org.wikipedia:id/fragment_onboarding_skip_button'
       )
 
-      await _(_.waitForElement, element)
+      await _(_.waitForExist, element)
       await _(_.clickElement, element)
 
       // await _(
@@ -45,11 +45,11 @@ async function main() {
       // await _(_.saveScreenshot, `${__dirname}/ss1.png`)
 
       element = await _(_.findElement, 'text', 'NO THANKS')
-      await _(_.waitForElement, element)
+      await _(_.waitForExist, element)
       await _(_.clickElement, element)
 
       element = await _(_.findElement, 'text', 'GOT IT')
-      await _(_.waitForElement, element)
+      await _(_.waitForExist, element)
       await _(_.clickElement, element)
 
       // endtest.io sample
@@ -61,11 +61,11 @@ async function main() {
           'resourceId',
           'org.wikipedia:id/search_container'
         )
-        await _(_.waitForElement, element)
+        await _(_.waitForExist, element)
 
         // verify explore icon is present
         element = await _(_.findElement, 'resourceId', 'org.wikipedia:id/icon')
-        await _(_.waitForElement, element)
+        await _(_.waitForExist, element)
 
         // tap search input
         element = await _(
@@ -99,7 +99,7 @@ async function main() {
 
         // verify title
         element = await _(_.findElement, 'text', 'Automated Testing Framework')
-        await _(_.waitForElement, element, 10000)
+        await _(_.waitForExist, element, 10000)
       })
     })
     await client.deleteSession()
