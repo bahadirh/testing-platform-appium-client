@@ -8,6 +8,7 @@ const actionSequence = require('./action-sequence')
 const setValue = require('./set-value-of-element')
 const findElementByXpath = require('./find-element-by-xpath')
 const alerts = require('./alerts')
+const waitForExist = require('./wait-for-exist')
 
 module.exports = {
   actionSequence,
@@ -19,5 +20,6 @@ module.exports = {
   saveScreenshot,
   setValue,
   waitForElement,
+  waitForExist,
   ...alerts
 }
