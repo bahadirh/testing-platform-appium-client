@@ -9,8 +9,8 @@ const saveScreenshotOnAndroid = async (client, savePath) => {
   return await client.saveScreenshot(savePath)
 }
 
-const saveScreenshotOnIOS = async (client, savepath) => {
-  // TODO: implement taking and saving screenshots on iOS
+const saveScreenshotOnIOS = async (client, savePath) => {
+  return await client.saveScreenshot(savePath)
 }
 
 module.exports = {
