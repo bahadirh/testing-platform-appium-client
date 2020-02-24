@@ -13,7 +13,6 @@ const clickGivenElement = el => {
   return el.click()
 }
 
-// TODO: make passing client each time optional by using closures
 const clickElement = async (client, selectors) => {
   const element = await getElement(client, selectors)
   return clickGivenElement(element)
