@@ -8,12 +8,14 @@ const setValue = require('./set-value-of-element')
 const findElementByXpath = require('./find-element-by-xpath')
 const alerts = require('./alerts')
 const waitForExist = require('./wait-for-exist')
+const getPageSource = require('./get-page-source')
 
 module.exports = {
   actionSequence,
   clickElement,
   findElement,
   findElementByXpath,
+  getPageSource,
   platforms,
   pushFile,
   saveScreenshot,
