@@ -1,3 +1,4 @@
+const fs = require('fs')
 const wdio = require('webdriverio')
 
 const utils = require('../utils/v2')
@@ -32,6 +33,8 @@ async function main() {
       )
       await _(_.waitForExist, element)
       await _(_.clickElement, element)
+
+      fs.writeFileSync(`${__dirname}/dump.json`, await _(_.getPageSource))
 
       await _(_.saveScreenshot, `${__dirname}/../screenshots/ss-ios01.png`)
 
