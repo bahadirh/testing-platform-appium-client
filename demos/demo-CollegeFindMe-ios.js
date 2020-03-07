@@ -1,7 +1,7 @@
 const fs = require('fs')
 const wdio = require('webdriverio')
 
-const utils = require('../utils/v2')
+const utils = require('../utils')
 
 const opts = {
   logLevel: 'silent',
