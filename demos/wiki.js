@@ -1,6 +1,6 @@
 const wdio = require('webdriverio')
 
-const { clickElement, getElement, tryAction } = require('../utils')
+const { clickElement, getElement, tryAction } = require('../utils-old')
 
 const opts = {
   logLevel: 'silent',
