@@ -16,12 +16,12 @@ const opts = {
 }
 
 async function main() {
-  await utils.actionSequence(null, async () => {
+  try {
     let element
     const client = await wdio.remote({ ...opts })
     const _ = utils.platforms.onPlatform(client, utils)
 
-    await _(_.actionSequence, async () => {
+    try {
       element = await _(_.findElement, 'name', 'Use another option')
       await _(_.waitForExist, element, 10000)
       await _(_.clickElement, element)
@@ -34,9 +34,7 @@ async function main() {
       await _(_.waitForExist, element)
       await _(_.clickElement, element)
 
-      fs.writeFileSync(`${__dirname}/dump.json`, await _(_.getPageSource))
-
-      await _(_.saveScreenshot, `${__dirname}/../screenshots/ss-ios01.png`)
+      // await _(_.saveScreenshot, `${__dirname}/../screenshots/ss-ios01.png`)
 
       element = await _(_.findElement, 'name', 'Your email address')
       await _(_.waitForExist, element)
@@ -64,9 +62,16 @@ async function main() {
       element = await _(_.findElement, 'name', 'Continue')
       await _(_.waitForExist, element)
       await _(_.clickElement, element)
-    })
-    await client.deleteSession()
-  })
+
+      // await _(_.saveScreenshot, `${__dirname}/../screenshots/ss-ios02.png`)
+    } catch (e) {
+      console.error(e)
+    } finally {
+      await client.deleteSession()
+    }
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 main()
