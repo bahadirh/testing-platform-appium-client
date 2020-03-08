@@ -9,8 +9,7 @@ const findElementByXpath = require('./find-element-by-xpath')
 const alerts = require('./alerts')
 const waitForExist = require('./wait-for-exist')
 const getPageSource = require('./get-page-source')
-const getGeoLocation = require('./geolocation/get-geolocation')
-const setGeoLocation = require('./geolocation/set-geolocation')
+const geolocation = require('./geolocation')
 const pause = require('./pause')
 const misc = require('./misc')
 const orientation = require('./orientation')
@@ -20,17 +19,16 @@ module.exports = {
   clickElement,
   findElement,
   findElementByXpath,
-  getGeoLocation,
   getPageSource,
   getScreenOrientation,
   pause,
   platforms,
   pushFile,
   saveScreenshot,
-  setGeoLocation,
   setValue,
   waitForExist,
   ...alerts,
+  ...geolocation,
   ...misc,
   ...orientation
 }
