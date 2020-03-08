@@ -41,7 +41,7 @@ async function main() {
       element = await _(_.findElement, 'name', 'Your email address')
       await _(_.waitForExist, element)
       await _(_.setValue, element, 'bahadir1@hocamoglu.com')
-      
+
       element = await _(_.findElement, 'name', 'Continue')
       await _(_.waitForExist, element)
       await _(_.clickElement, element)
