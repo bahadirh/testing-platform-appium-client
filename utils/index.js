@@ -18,6 +18,7 @@ const hideKeyboard = require('./misc/hide-keyboard')
 const lockDevice = require('./misc/lock')
 const resetApp = require('./misc/reset-app')
 const shake = require('./misc/shake')
+const unlockDevice = require('./misc/unlock')
 
 module.exports = {
   actionSequence,
@@ -38,6 +39,7 @@ module.exports = {
   setGeoLocation,
   setValue,
   shake,
+  unlockDevice,
   waitForExist,
   ...alerts
 }
