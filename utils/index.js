@@ -14,6 +14,7 @@ const setGeoLocation = require('./geolocation/set-geolocation')
 const pause = require('./pause')
 const clearElement = require('./misc/clear-element')
 const getWindowSize = require('./misc/get-window-size')
+const hideKeyboard = require('./misc/hide-keyboard')
 
 module.exports = {
   actionSequence,
@@ -24,6 +25,7 @@ module.exports = {
   getGeoLocation,
   getPageSource,
   getWindowSize,
+  hideKeyboard,
   pause,
   platforms,
   pushFile,
