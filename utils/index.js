@@ -12,9 +12,11 @@ const getPageSource = require('./get-page-source')
 const getGeoLocation = require('./geolocation/get-geolocation')
 const setGeoLocation = require('./geolocation/set-geolocation')
 const pause = require('./pause')
+const clearElement = require('./misc/clear-element')
 
 module.exports = {
   actionSequence,
+  clearElement,
   clickElement,
   findElement,
   findElementByXpath,

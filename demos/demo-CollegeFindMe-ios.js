@@ -26,7 +26,7 @@ async function main() {
       await _(_.waitForExist, element, 10000)
       await _(_.clickElement, element)
 
-      await _(_.pause, 5000)
+      // await _(_.pause, 5000)
 
       element = await _(
         _.findElement,
