@@ -17,6 +17,7 @@ const getWindowSize = require('./misc/get-window-size')
 const hideKeyboard = require('./misc/hide-keyboard')
 const lockDevice = require('./misc/lock')
 const resetApp = require('./misc/reset-app')
+const shake = require('./misc/shake')
 
 module.exports = {
   actionSequence,
@@ -36,6 +37,7 @@ module.exports = {
   saveScreenshot,
   setGeoLocation,
   setValue,
+  shake,
   waitForExist,
   ...alerts
 }
