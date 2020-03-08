@@ -12,34 +12,25 @@ const getPageSource = require('./get-page-source')
 const getGeoLocation = require('./geolocation/get-geolocation')
 const setGeoLocation = require('./geolocation/set-geolocation')
 const pause = require('./pause')
-const clearElement = require('./misc/clear-element')
-const getWindowSize = require('./misc/get-window-size')
-const hideKeyboard = require('./misc/hide-keyboard')
-const lockDevice = require('./misc/lock')
-const resetApp = require('./misc/reset-app')
-const shake = require('./misc/shake')
-const unlockDevice = require('./misc/unlock')
+const misc = require('./misc')
+const orientation = require('./orientation')
 
 module.exports = {
   actionSequence,
-  clearElement,
   clickElement,
   findElement,
   findElementByXpath,
   getGeoLocation,
   getPageSource,
-  getWindowSize,
-  hideKeyboard,
-  lockDevice,
+  getScreenOrientation,
   pause,
   platforms,
   pushFile,
-  resetApp,
   saveScreenshot,
   setGeoLocation,
   setValue,
-  shake,
-  unlockDevice,
   waitForExist,
-  ...alerts
+  ...alerts,
+  ...misc,
+  ...orientation
 }
