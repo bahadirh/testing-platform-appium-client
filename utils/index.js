@@ -9,16 +9,20 @@ const findElementByXpath = require('./find-element-by-xpath')
 const alerts = require('./alerts')
 const waitForExist = require('./wait-for-exist')
 const getPageSource = require('./get-page-source')
+const getGeoLocation = require('./geolocation/get-geolocation')
+const setGeoLocation = require('./geolocation/set-geolocation')
 
 module.exports = {
   actionSequence,
   clickElement,
   findElement,
   findElementByXpath,
+  getGeoLocation,
   getPageSource,
   platforms,
   pushFile,
   saveScreenshot,
+  setGeoLocation,
   setValue,
   waitForExist,
   ...alerts
