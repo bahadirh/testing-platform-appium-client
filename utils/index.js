@@ -13,6 +13,7 @@ const getGeoLocation = require('./geolocation/get-geolocation')
 const setGeoLocation = require('./geolocation/set-geolocation')
 const pause = require('./pause')
 const clearElement = require('./misc/clear-element')
+const getWindowSize = require('./misc/get-window-size')
 
 module.exports = {
   actionSequence,
@@ -22,6 +23,7 @@ module.exports = {
   findElementByXpath,
   getGeoLocation,
   getPageSource,
+  getWindowSize,
   pause,
   platforms,
   pushFile,
