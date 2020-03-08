@@ -15,6 +15,7 @@ const pause = require('./pause')
 const clearElement = require('./misc/clear-element')
 const getWindowSize = require('./misc/get-window-size')
 const hideKeyboard = require('./misc/hide-keyboard')
+const lockDevice = require('./misc/lock')
 
 module.exports = {
   actionSequence,
@@ -26,6 +27,7 @@ module.exports = {
   getPageSource,
   getWindowSize,
   hideKeyboard,
+  lockDevice,
   pause,
   platforms,
   pushFile,
