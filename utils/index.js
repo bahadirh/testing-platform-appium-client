@@ -11,6 +11,7 @@ const waitForExist = require('./wait-for-exist')
 const getPageSource = require('./get-page-source')
 const getGeoLocation = require('./geolocation/get-geolocation')
 const setGeoLocation = require('./geolocation/set-geolocation')
+const pause = require('./pause')
 
 module.exports = {
   actionSequence,
@@ -19,6 +20,7 @@ module.exports = {
   findElementByXpath,
   getGeoLocation,
   getPageSource,
+  pause,
   platforms,
   pushFile,
   saveScreenshot,
