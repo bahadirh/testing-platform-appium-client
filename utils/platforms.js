@@ -8,5 +8,8 @@ module.exports.onPlatform = (client, functions) => {
     fn[helper] = functions[helper]
   })
 
+  // attaches a new empty object for variables declared at runtime
+  fn['variables'] = {}
+
   return fn
 }

@@ -13,6 +13,8 @@ const geolocation = require('./geolocation')
 const pause = require('./pause')
 const misc = require('./misc')
 const orientation = require('./orientation')
+const variables = require('./variables')
+const moveOnScreen = require('./move')
 
 module.exports = {
   actionSequence,
@@ -21,6 +23,7 @@ module.exports = {
   findElementByXpath,
   getPageSource,
   getScreenOrientation,
+  moveOnScreen,
   pause,
   platforms,
   pushFile,
@@ -30,5 +33,6 @@ module.exports = {
   ...alerts,
   ...geolocation,
   ...misc,
-  ...orientation
+  ...orientation,
+  ...variables
 }
