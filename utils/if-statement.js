@@ -4,21 +4,21 @@ const ifStatement = async (
   onSuccess,
   onFailure = () => {}
 ) => {
-    const conditionEvaluated
-    if (typeof condition == 'function') {
-        conditionEvaluated = condition()
-    } else {
-        conditionEvaluated = condition
-    }
+  let conditionEvaluated
+  if (typeof condition == 'function') {
+    conditionEvaluated = condition()
+  } else {
+    conditionEvaluated = condition
+  }
 
-    if (conditionEvaluated) {
-        return await onSuccess()
-    } else {
-        return await onFailure()
-    }
+  if (conditionEvaluated) {
+    return await onSuccess()
+  } else {
+    return await onFailure()
+  }
 }
 
 module.exports = {
-    Android: ifStatement,
-    iOS: ifStatement
+  Android: ifStatement,
+  iOS: ifStatement
 }
