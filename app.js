@@ -77,7 +77,7 @@ async function main() {
       try {
         await client.acceptAlert()
       } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
       }
 
       // turn it on
@@ -91,19 +91,8 @@ async function main() {
           await clickElement(client, [['text', 'Install VPN profile']])
           await clickElement(client, [['text', 'OK']])
         } catch (error) {
-          // console.log(error.message)
+          // console.error(error.message)
         }
-
-        console.log(
-          await (
-            await getElement(client, [
-              [
-                'resourceId',
-                'com.cloudflare.onedotonedotonedotone:id/connectionStateTv'
-              ]
-            ])
-          ).getText()
-        )
       }
 
       // turn it off
@@ -114,16 +103,16 @@ async function main() {
         try {
           await clickElement(client, [['text', 'Until I turn it back on']])
         } catch (error) {
-          console.log(error.message)
+          console.error(error.message)
         }
       }
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
     }
 
     await client.deleteSession()
   } catch (error) {
-    console.log(error.message)
+    console.error(error.message)
   }
 }
 

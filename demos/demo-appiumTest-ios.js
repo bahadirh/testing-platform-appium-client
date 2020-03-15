@@ -1,6 +1,6 @@
 const wdio = require('webdriverio')
 
-const utils = require('../utils/v2')
+const utils = require('../utils')
 
 const opts = {
   logLevel: 'silent',
@@ -21,24 +21,31 @@ const opts = {
 }
 
 async function main() {
-  await utils.actionSequence(null, async () => {
+  try {
     let element
     const client = await wdio.remote({ ...opts })
     const _ = utils.platforms.onPlatform(client, utils)
 
-    await _(_.actionSequence, async () => {
-      //   element = await client.$(`XCUIElementTypeTextField`)
+    try {
       element = await _(_.findElement, 'name', 'emailTextField')
-      await _(_.waitForExist, element, 10000)
-      await element.setValue('ba@ho.com')
+      await _(_.waitForExist, element)
+      await _(_.setValue, element, 'ba@ho.com')
 
-      await _(_.dismissAlert)
+      element = await _(_.findElement, 'name', 'passwordTextField')
+      await _(_.waitForExist, element)
+      await _(_.setValue, element, 'vbnasd123')
 
-      await _(_.acceptAlert)
-    })
-
-    await client.deleteSession()
-  })
+      element = await _(_.findElement, 'name', 'loginButton')
+      await _(_.waitForExist, element)
+      await _(_.clickElement, element)
+    } catch (e) {
+      console.error(e)
+    } finally {
+      await client.deleteSession()
+    }
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 main()

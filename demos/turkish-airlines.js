@@ -46,7 +46,7 @@ async function main() {
 
     await client.deleteSession()
   } catch (error) {
-    console.log(error.message)
+    console.error(error.message)
   }
 }
 

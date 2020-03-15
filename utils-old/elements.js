@@ -20,7 +20,7 @@ const clickElement = async (client, selectors) => {
 
 const tryAction = async (
   action,
-  errHandler = err => console.log(err.message)
+  errHandler = err => console.error(err.message)
 ) => {
   try {
     await action()
@@ -40,7 +40,7 @@ const waitUntilDone = async (fn, repeat = 50) => {
 
 const verifyElement = async (client, selectors) => {
   const element = await getElement(client, selectors)
-  console.log(element)
+  console.error(element)
 }
 
 module.exports = {

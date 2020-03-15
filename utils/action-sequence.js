@@ -1,7 +1,7 @@
 const tryAction = async (
   client,
   action,
-  errHandler = err => console.log(err.message)
+  errHandler = err => console.error(err.message)
 ) => {
   try {
     await action()
