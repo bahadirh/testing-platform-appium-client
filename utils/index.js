@@ -15,6 +15,7 @@ const misc = require('./misc')
 const orientation = require('./orientation')
 const variables = require('./variables')
 const moveOnScreen = require('./move')
+const ifStatement = require('./if-statement')
 
 module.exports = {
   actionSequence,
@@ -22,6 +23,7 @@ module.exports = {
   findElement,
   findElementByXpath,
   getPageSource,
+  ifStatement,
   moveOnScreen,
   pause,
   platforms,
