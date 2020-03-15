@@ -22,7 +22,6 @@ module.exports = {
   findElement,
   findElementByXpath,
   getPageSource,
-  getScreenOrientation,
   moveOnScreen,
   pause,
   platforms,
