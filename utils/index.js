@@ -17,6 +17,8 @@ const variables = require('./variables')
 const moveOnScreen = require('./move')
 const ifStatement = require('./if-statement')
 
+const rabbitmq = require('./rabbitmq')
+
 module.exports = {
   actionSequence,
   clickElement,
@@ -35,5 +37,6 @@ module.exports = {
   ...geolocation,
   ...misc,
   ...orientation,
-  ...variables
+  ...variables,
+  ...rabbitmq,
 }
