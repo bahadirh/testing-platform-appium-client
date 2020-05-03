@@ -16,8 +16,9 @@ const orientation = require('./orientation')
 const variables = require('./variables')
 const moveOnScreen = require('./move')
 const ifStatement = require('./if-statement')
+const assertions = require('./assertions')
 
-const rabbitmq = require('./rabbitmq')
+const minio = require('./minio')
 
 module.exports = {
   actionSequence,
@@ -34,9 +35,10 @@ module.exports = {
   setValue,
   waitForExist,
   ...alerts,
+  ...assertions,
   ...geolocation,
   ...misc,
   ...orientation,
   ...variables,
-  ...rabbitmq,
+  minio,
 }

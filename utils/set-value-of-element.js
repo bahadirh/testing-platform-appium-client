@@ -1,12 +1,14 @@
-const setValueOnAndroid = async (client, element, data) => {
-  return await element.setValue(data)
-}
+const findElement = require('./find-element')
 
-const setValueOnIOS = async (client, element, data) => {
-  return await element.setValue(data)
+const setValueFnBuilder = elementFinder => async (
+  client,
+  { elementSelector, selectElementBy, value }
+) => {
+  const element = await elementFinder(client, selectElementBy, elementSelector)
+  return await element.setValue(value)
 }
 
 module.exports = {
-  Android: setValueOnAndroid,
-  iOS: setValueOnIOS
+  Android: setValueFnBuilder(findElement.Android),
+  iOS: setValueFnBuilder(findElement.iOS),
 }

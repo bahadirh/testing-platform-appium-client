@@ -1,7 +1,9 @@
 const wdio = require('webdriverio')
-const assert = require('assert')
+
+const utils = require('../utils')
 
 const opts = {
+  // logLevel: 'silent',
   port: 4723,
   capabilities: {
     platformName: 'Android',
@@ -13,16 +15,27 @@ const opts = {
     automationName: 'UiAutomator2',
   },
 }
+wdio
+  .remote(opts)
+  .then(async client => {
+    const _ = utils.platforms.onPlatform(client, utils)
 
-async function main() {
-  const client = await wdio.remote({ ...opts })
+    await _(_.setValue, {
+      elementSelector: 'android.widget.EditText',
+      selectElementBy: 'className',
+      value: 'Hello world!',
+    })
+    await _(_.assertTextEqualsTo, {
+      elementSelector: 'android.widget.EditText',
+      selectElementBy: 'className',
+      value: 'Hello world!',
+    })
 
-  const field = await client.$('android.widget.EditText')
-  await field.setValue('Hello World!')
-  const value = await field.getText()
-  assert.equal(value, 'Hello World!')
-
-  await client.deleteSession()
-}
-
-main()
+    return client
+  })
+  .then(client => {
+    return client.deleteSession()
+  })
+  .catch(err => {
+    console.error(err)
+  })

@@ -1,10 +1,8 @@
 const wdio = require('webdriverio')
 
-const { tryAction } = require('../utils')
-const utils = require('../utils/v2')
+const utils = require('../utils')
 
 const opts = {
-  logLevel: 'silent',
   port: 4723,
   capabilities: {
     acceptInsecureCerts: true,
@@ -14,8 +12,8 @@ const opts = {
     automationName: 'Appium',
     deviceName: 'Android Emulator',
     platformName: 'Android',
-    platformVersion: '9'
-  }
+    platformVersion: '10',
+  },
 }
 
 async function main() {

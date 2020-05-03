@@ -1,3 +1,4 @@
+// TODO: use isAndroid, isIOS, etc. in client
 module.exports.onPlatform = (client, functions) => {
   const platform = client.capabilities.platformName
   const fn = async (actions, ...args) => {
