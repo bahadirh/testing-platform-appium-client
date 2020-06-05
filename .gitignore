@@ -114,3 +114,6 @@ dist
 
 #temporary files
 tmp
+
+# app-specific files
+machines.yaml

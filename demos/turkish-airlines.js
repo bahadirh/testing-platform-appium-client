@@ -3,18 +3,19 @@ const { remote } = require('webdriverio')
 const { clickElement, getElement, tryAction } = require('../utils')
 
 const opts = {
-  logLevel: 'silent',
+  // logLevel: 'silent',
   port: 4723,
   capabilities: {
     acceptInsecureCerts: true,
     allowTestPackages: true,
     appActivity: 'ui.main.MainActivity',
+    app: `${__dirname}/../apk/turkish-airlines-1-9-0.apk`,
     appPackage: 'com.turkishairlines.mobile',
     automationName: 'Appium',
-    deviceName: 'Android Emulator',
+    deviceName: 'emulator2',
     platformName: 'Android',
-    platformVersion: '9'
-  }
+    platformVersion: '9',
+  },
 }
 
 async function main() {
