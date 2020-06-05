@@ -1,6 +1,6 @@
 require('./config')
 const amqp = require('amqplib')
-const fs = require('fs').promises
+const fs = require('fs')
 const YAML = require('yaml')
 const { client } = require('./utils').minio
 const runner = require('./runner')
@@ -14,7 +14,7 @@ amqp
   .then(async conn => {
     const channel = await conn.createChannel()
 
-    const emulatorConfig = await fs
+    const emulatorConfig = await fs.promises
       .readFile('machines.yaml')
       .then(file => YAML.parse(file.toString()))
     const queues = Object.keys(emulatorConfig).filter(
@@ -31,15 +31,20 @@ amqp
 
       channel.consume(queue, async msg => {
         const spec = JSON.parse(msg.content.toString())
-        // TODO: run the actual test
-        const fileDir = `${__dirname}/tmp/${spec._id}/${spec.buildFile}`
 
-        console.info(spec)
+        const tmpDir = `${__dirname}/tmp/${spec._id}`
+        const fileDir = `${tmpDir}/${spec.buildFile}`
+        const screenshotDir = `${tmpDir}/screenshots`
+        if (!fs.existsSync(screenshotDir)) {
+          await fs.promises.mkdir(screenshotDir, { recursive: true })
+        }
 
         await client.fGetObject(spec.owner, spec.buildFile, fileDir)
+
+        const results = await runner(spec.testCase, fileDir, screenshotDir)
         const resultsMsg = {
           test_id: spec._id,
-          results: await runner(spec.testCase, fileDir),
+          results,
           owner: spec.owner,
         }
         // TODO: do file cleanup
