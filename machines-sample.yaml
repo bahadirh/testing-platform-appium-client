@@ -1,0 +1,14 @@
+android-version-10:
+  version: 10
+  devices:
+    - emulator1
+
+android-version-9:
+  version: 10
+  devices:
+    - u8t4prnrzlrkf655
+
+ios-version-13.3:
+  version: 13.3
+  devices:
+    - simulator1
