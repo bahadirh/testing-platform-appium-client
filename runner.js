@@ -24,29 +24,32 @@ const optionsBuilder = app => {
 }
 
 module.exports = async (spec, appDir, screenshotsDir) => {
-  return wdio
-    .remote(optionsBuilder(appDir))
-    .then(async client => {
-      const _ = utils.platforms.onPlatform(client, utils)
+  return wdio.remote(optionsBuilder(appDir)).then(async client => {
+    const _ = utils.platforms.onPlatform(client, utils)
 
-      const state = new Array()
-      let stepNo = 1
+    const state = new Array()
+    let stepNo = 1
+
+    try {
       for (step of spec) {
         await _(_[step.action], step)
 
-        state.push(xml2map.tojson(await _(_.getPageSource)))
+        const screenshotFile = `${screenshotsDir}/${stepNo}.png`
+        state.push({
+          screenshotFilename: `${stepNo}.png`,
+          xml: xml2map.tojson(await _(_.getPageSource)),
+        })
 
-        await _(_.saveScreenshot, `${screenshotsDir}/${stepNo}.png`)
+        await _(_.saveScreenshot, screenshotFile)
         stepNo++
       }
 
       // TODO: zip screenshots
-
+      return { state }
+    } catch (error) {
+      return { error, state }
+    } finally {
       await client.deleteSession()
-      return state
-    })
-    .catch(error => {
-      console.error(error)
-      return error
-    })
+    }
+  })
 }

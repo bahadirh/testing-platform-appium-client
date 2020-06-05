@@ -30,34 +30,48 @@ amqp
       channel.prefetch(emulatorConfig[queue].devices.length)
 
       channel.consume(queue, async msg => {
-        const spec = JSON.parse(msg.content.toString())
+        try {
+          const spec = JSON.parse(msg.content.toString())
 
-        const tmpDir = `${__dirname}/tmp/${spec._id}`
-        const fileDir = `${tmpDir}/${spec.buildFile}`
-        const screenshotDir = `${tmpDir}/screenshots`
-        if (!fs.existsSync(screenshotDir)) {
-          await fs.promises.mkdir(screenshotDir, { recursive: true })
-        }
-
-        await client.fGetObject(spec.owner, spec.buildFile, fileDir)
-
-        const results = await runner(spec.testCase, fileDir, screenshotDir)
-        const resultsMsg = {
-          test_id: spec._id,
-          results,
-          owner: spec.owner,
-        }
-        // TODO: do file cleanup
-
-        channel.sendToQueue(
-          'results',
-          Buffer.from(JSON.stringify(resultsMsg)),
-          {
-            persistent: true,
+          const tmpDir = `${__dirname}/tmp/${spec._id}`
+          const fileDir = `${tmpDir}/${spec.buildFile}`
+          const screenshotDir = `${tmpDir}/screenshots`
+          if (!fs.existsSync(screenshotDir)) {
+            fs.mkdirSync(screenshotDir, { recursive: true })
           }
-        )
 
-        channel.ack(msg) // just do ACK on the message received
+          await client.fGetObject(spec.owner, spec.buildFile, fileDir)
+
+          const results = await runner(spec.testCase, fileDir, screenshotDir)
+          await Promise.all(
+            results.state.map(step => {
+              return client.fPutObject(
+                spec.owner,
+                `${spec._id}/${step.screenshotFilename}`,
+                `${screenshotDir}/${step.screenshotFilename}`
+              )
+            })
+          )
+
+          const resultsMsg = {
+            test_id: spec._id,
+            results,
+            owner: spec.owner,
+          }
+          // TODO: do file cleanup
+          fs.rmdirSync(tmpDir, { recursive: true })
+          channel.sendToQueue(
+            'results',
+            Buffer.from(JSON.stringify(resultsMsg)),
+            {
+              persistent: true,
+            }
+          )
+
+          channel.ack(msg) // just do ACK on the message received
+        } catch (error) {
+          channel.nack(msg)
+        }
       })
     })
   })
