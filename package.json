@@ -12,6 +12,10 @@
     "yaml": "^1.9.2"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon --inspect index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
