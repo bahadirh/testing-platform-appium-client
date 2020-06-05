@@ -23,18 +23,24 @@ const optionsBuilder = app => {
   return baseOpts
 }
 
-module.exports = async (spec, appDir) => {
+module.exports = async (spec, appDir, screenshotsDir) => {
   return wdio
     .remote(optionsBuilder(appDir))
     .then(async client => {
       const _ = utils.platforms.onPlatform(client, utils)
 
       const state = new Array()
+      let stepNo = 1
       for (step of spec) {
         await _(_[step.action], step)
 
         state.push(xml2map.tojson(await _(_.getPageSource)))
+
+        await _(_.saveScreenshot, `${screenshotsDir}/${stepNo}.png`)
+        stepNo++
       }
+
+      // TODO: zip screenshots
 
       await client.deleteSession()
       return state
