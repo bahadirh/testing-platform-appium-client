@@ -12,6 +12,6 @@
     "yaml": "^1.9.2"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node index.js"
   }
 }
