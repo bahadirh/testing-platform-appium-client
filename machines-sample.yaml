@@ -1,3 +1,4 @@
+# declare Android emulators in that specific format: "android-version-<VERSION NO>"
 android-version-10:
   version: 10
   devices:
@@ -8,6 +9,7 @@ android-version-9:
   devices:
     - u8t4prnrzlrkf655
 
+# declare IOS simulators in that specific format: "ios-version-<VERSION NO>"
 ios-version-13.3:
   version: 13.3
   devices:
