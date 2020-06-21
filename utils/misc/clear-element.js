@@ -1,4 +1,4 @@
-const clearElement = async (client, elementId) => {
+const clearElement = async (client, { elementId }) => {
   if (typeof elementId != String) {
     elementId = elementId.elementId
   }
@@ -7,5 +7,5 @@ const clearElement = async (client, elementId) => {
 
 module.exports = {
   Android: clearElement,
-  iOS: clearElement
+  iOS: clearElement,
 }

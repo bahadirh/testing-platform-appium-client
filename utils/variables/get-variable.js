@@ -3,11 +3,11 @@
  * @param {*} client Device connection instance
  * @param {String} name identifier
  */
-const getVariable = (client, name) => {
+const getVariable = (client, { name }) => {
   return client.variables[name]
 }
 
 module.exports = {
   Android: getVariable,
-  iOS: getVariable
+  iOS: getVariable,
 }

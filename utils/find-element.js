@@ -1,5 +1,5 @@
 // doesn't support selector-chaining yet
-const findElementOnAndroid = async (client, selector, value) => {
+const findElementOnAndroid = async (client, { selector, value }) => {
   if (selector == 'xpath') {
     return await client.$(value)
   } else {
@@ -7,7 +7,7 @@ const findElementOnAndroid = async (client, selector, value) => {
   }
 }
 
-const findElementOnIOS = async (client, selector, value) => {
+const findElementOnIOS = async (client, { selector, value }) => {
   if (selector == 'xpath') {
     return await client.$(value)
   } else {
@@ -17,5 +17,5 @@ const findElementOnIOS = async (client, selector, value) => {
 
 module.exports = {
   Android: findElementOnAndroid,
-  iOS: findElementOnIOS
+  iOS: findElementOnIOS,
 }
