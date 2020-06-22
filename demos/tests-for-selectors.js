@@ -3,12 +3,14 @@ const wdio = require('webdriverio')
 const utils = require('../utils')
 
 const opts = {
+  logLevel: 'silent',
   port: 4723,
   capabilities: {
     acceptInsecureCerts: true,
     allowTestPackages: true,
-    appActivity: 'main.MainActivity',
-    appPackage: 'org.wikipedia',
+    // appActivity: 'main.MainActivity',
+    // appPackage: 'org.wikipedia',
+    app: `${__dirname}/../apk/ApiDemos-debug.apk`,
     automationName: 'Appium',
     deviceName: 'Android Emulator',
     platformName: 'Android',
@@ -20,17 +22,25 @@ async function main() {
   await utils.actionSequence(null, async () => {
     const client = await wdio.remote({ ...opts })
     const _ = utils.platforms.onPlatform(client, utils)
-
+    await client.setTimeouts(10000)
     await _(_.actionSequence, async () => {
       let element
-      element = await _(
-        _.findElement,
-        'resourceId',
-        'org.wikipedia:id/fragment_onboarding_skip_button'
-      )
+      await _(_.clickElement, {
+        elementSelector: 'Views',
+        selectElementBy: 'text',
+      })
 
-      await _(_.waitForExist, element)
-      await _(_.clickElement, element)
+      element = await client.findElement('id', 'android:id/text1')
+      await client.touchScroll(0, 500, element.ELEMENT)
+      console.info('here')
+      // element = await _(
+      //   _.findElement,
+      //   'resourceId',
+      //   'org.wikipedia:id/fragment_onboarding_skip_button'
+      // )
+      //   client.elementClick
+      // await _(_.waitForExist, element)
+      // await _(_.clickElement, element)
 
       // await _(
       //   _.pushFile,

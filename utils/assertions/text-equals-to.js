@@ -5,8 +5,11 @@ const assertElementTextBuilder = elementFinder => async (
   client,
   { elementSelector, selectElementBy, value }
 ) => {
-  const element = await elementFinder(client, selectElementBy, elementSelector)
-  return assert.equal(await element.getText(), value)
+  const element = await elementFinder(client, {
+    selector: selectElementBy,
+    value: elementSelector,
+  })
+  return assert.equal(await element.getText(), value.toString())
 }
 
 module.exports = {

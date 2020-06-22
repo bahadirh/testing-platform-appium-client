@@ -58,7 +58,7 @@ amqp
             results,
             owner: spec.owner,
           }
-          // TODO: do file cleanup
+          // file cleanup
           fs.rmdirSync(tmpDir, { recursive: true })
           channel.sendToQueue(
             'results',

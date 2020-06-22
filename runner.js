@@ -15,7 +15,6 @@ const optionsBuilder = app => {
       platformVersion: '10',
       deviceName: 'Android Emulator',
       appPackage: 'io.appium.android.apis',
-      appActivity: '.view.TextFields',
       automationName: 'UiAutomator2',
     },
   }
@@ -26,12 +25,13 @@ const optionsBuilder = app => {
 module.exports = async (spec, appDir, screenshotsDir) => {
   return wdio.remote(optionsBuilder(appDir)).then(async client => {
     const _ = utils.platforms.onPlatform(client, utils)
+    await client.setTimeouts(10000)
 
     const state = new Array()
     let stepNo = 1
 
     try {
-      for (step of spec) {
+      for (const step of spec) {
         await _(_[step.action], step)
 
         const screenshotFile = `${screenshotsDir}/${stepNo}.png`
@@ -44,7 +44,6 @@ module.exports = async (spec, appDir, screenshotsDir) => {
         stepNo++
       }
 
-      // TODO: zip screenshots
       return { state }
     } catch (error) {
       return { error, state }

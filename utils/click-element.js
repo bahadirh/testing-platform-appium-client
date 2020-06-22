@@ -1,4 +1,14 @@
-const clickElement = async (client, { element }) => {
+const findElement = require('./find-element')
+
+const clickElement = elementFinder => async (
+  client,
+  { elementSelector, selectElementBy }
+) => {
+  const element = await elementFinder(client, {
+    selector: selectElementBy,
+    value: elementSelector,
+  })
+
   if (typeof element == 'string') {
     return await client.elementClick(element)
   } else {
@@ -7,6 +17,6 @@ const clickElement = async (client, { element }) => {
 }
 
 module.exports = {
-  Android: clickElement,
-  iOS: clickElement,
+  Android: clickElement(findElement.Android),
+  iOS: clickElement(findElement.iOS),
 }
